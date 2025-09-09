@@ -44,23 +44,6 @@ inner join v_RouteStops rs on rs.c_id = us.c_id
 --where us.AutoID = 11079
 group by rs.STOPID, us.AutoID, rs.ROUTEID
 
-
-/* Services with unmatched route assignments */
-
-select us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
---select *
-from v_UnassignedServices us
-inner join  ConversionData.dbo.RXRF rx on rx.C_ID = us.C_ID
-group by us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
-
-/* Services with no stops */
-select us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
---select *
-from v_UnassignedServices us
-left join  ConversionData.dbo.RXRF rx on rx.C_ID = us.C_ID
-where rx.c_id is null
-group by us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
-
 drop table if exists TempAssignments 
 
 select 
@@ -112,5 +95,20 @@ end [DayOfWeek],
 	else ISNULL(TRY_CAST(REPLACE(Position, ',', '') AS INT), 0)  end Position, PickUpInterval, ContainerType, StartDate, RoutedOrScheduled, MinLiftQuantity, RequiresQuantity, NextDueDate, Notes, SJVehicle, SJDriver, DMAccount, STOPID
 	from TempAssignments
 
-select *
-from SiteOrderAssignments
+
+
+/* Services with unmatched route assignments */
+/* Customers with multiple routes */
+select us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
+--select *
+from v_UnassignedServices us
+inner join  ConversionData.dbo.RXRF rx on rx.C_ID = us.C_ID
+group by us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
+
+/* Services with no stops */
+select us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
+--select *
+from v_UnassignedServices us
+left join  ConversionData.dbo.RXRF rx on rx.C_ID = us.C_ID
+where rx.c_id is null
+group by us.DMAccount, us.AgreeNbr, us.RentalPeriod, us.ServiceCode, us.ServiceDescription, us.Multiply, us.Price
