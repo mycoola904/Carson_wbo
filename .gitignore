@@ -1,0 +1,63 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python files
+*.pyc
+__pycache__/
+
+# Django migrations
+*/migrations/*
+
+# Database files
+*.sqlite3
+
+# Static files
+/static/
+staticfiles/
+
+# Media files
+/media/
+
+# Environment variables
+.env
+
+# Pytest cache
+.pytest_cache/
+
+# VSCode files
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# macOS specific
+.DS_Store
+
+# Node.js build files (if using npm or yarn)
+node_modules/
+
+# Coverage reports
+htmlcov/
+.coverage
+coverage.xml
+
+# MySQL/MSSQL database dumps
+*.log
+
+# Backup files
+*.bak
+*.swp
+*.swo
+
+# Django compiled files
+*.mo
+*.pot
+
+# Docker files (if applicable)
+docker-compose.yml
+Dockerfile
+
+# Ignore compiled translations
+*.po~
+*.mo
