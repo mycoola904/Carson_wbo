@@ -177,7 +177,7 @@ use ModMigration
 drop table if exists OrphanAccounts
 
 select cu.C_ID_ALPHA
---into OrphanAccounts
+into OrphanAccounts
 from ConversionData.dbo.CUST cu
 left join CustomerLocations cl on cl.UniqRef = cast(cu.C_ID as varchar)
 where cl.UniqRef is null
