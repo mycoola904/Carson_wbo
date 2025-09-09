@@ -2,7 +2,7 @@ use ConversionData
 
 
 
-select max(cu.C_ID_ALPHA) DMAccount, count(1) [#Used]
+select row_number() over(order by co.svc_code_alpha) ID, max(cu.C_ID_ALPHA) DMAccount, count(1) [#Used]
 , co.SVC_CODE_ALPHA [ServiceCode], co.Descript [ServiceDescription], cc.Description ServiceCategory
 ,co.LINK_STAT, '' size, '' unit, '' action, '' frequency, ''ServiceMap
 , '' container, '' type
